@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="{% static 'pages/style.css' %}">
+</head>
+<body>
+
+    <!-- DTL Variable -->
+    <h1>أهلاً، {{ student_name|title }}</h1>
+    <p>تاريخ النهاردة: {{ today|date:"d-m-Y" }}</p>
+
+    <div class="cards">
+        <!-- DTL Tag: for loop -->
+        {% for project in projects %}
+            <div class="card">
+                <h2>{{ project.title }}</h2>
+                <p>{{ project.desc|truncatewords:10 }}</p>
+
+                <!-- DTL Tag: if -->
+                {% if project.year >= 2026 %}
+                    <span class="badge new">جديد</span>
+                {% else %}
+                    <span class="badge">{{ project.year }}</span>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>لا يوجد مشاريع بعد.</p>
+        {% endfor %}
+    </div>
+
+</body>
+</html>
